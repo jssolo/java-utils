@@ -23,7 +23,9 @@ public class DateTools {
     /** 一天的毫秒数 24 * 60 * 60 * 1000 */
     private static final long DAY_MS = 86400000L;
     /** 时间格式化格式 */
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String TIME_FORMAT = "HH:mm:ss";
 
     /**
      * 分割时间方法，使用示例可访问:<a href="https://www.jssolo.com/java/9">https://www.jssolo.com/java/9</a>
@@ -36,7 +38,7 @@ public class DateTools {
      * @return 返回分割后的时间集合
      */
     public static List<String> splitTime(String dateType, String begin, String end, Integer space, boolean isAddEnd) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
         Date beginD = null;
         Date endD = null;
         try {
@@ -46,7 +48,7 @@ public class DateTools {
             throw new RuntimeException(e);
         }
         List<String> listDate = new ArrayList<>();
-        listDate.add(new SimpleDateFormat(DATE_FORMAT).format(beginD));
+        listDate.add(new SimpleDateFormat(DATE_TIME_FORMAT).format(beginD));
         Calendar calBegin = Calendar.getInstance();
         calBegin.setTime(beginD);
         Calendar calEnd = Calendar.getInstance();
@@ -68,11 +70,11 @@ public class DateTools {
                 calBegin.add(Calendar.SECOND , space);
             }
             if (calEnd.after(calBegin)){
-                listDate.add(new SimpleDateFormat(DATE_FORMAT).format(calBegin.getTime()));
+                listDate.add(new SimpleDateFormat(DATE_TIME_FORMAT).format(calBegin.getTime()));
             }
             else{
                 if(isAddEnd){
-                    listDate.add(new SimpleDateFormat(DATE_FORMAT).format(calEnd.getTime()));
+                    listDate.add(new SimpleDateFormat(DATE_TIME_FORMAT).format(calEnd.getTime()));
                 }
             }
         }
@@ -342,7 +344,7 @@ public class DateTools {
      * @return java.lang.Long
      */
     public static long toTimestamp(String dateStr){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
         ZonedDateTime zonedDateTime = dateTime.atZone(ZoneId.systemDefault());
         long timestamp = zonedDateTime.toInstant().toEpochMilli() / 1000;
@@ -356,7 +358,7 @@ public class DateTools {
      * @return java.lang.Long
      */
     public static long toUTCTimestamp(String dateStr){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
         ZonedDateTime utcZonedDateTime = dateTime.atZone(ZoneId.of("UTC"));
         long timestamp = utcZonedDateTime.toInstant().toEpochMilli() / 1000;
