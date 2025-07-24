@@ -65,6 +65,6 @@ public class SnowflakeIdWorker {
     }
 
     private long timeGen() {
-        return System.currentTimeMillis();
+        return System.currentTimeMillis() - 1420041600000L;
     }
 }
