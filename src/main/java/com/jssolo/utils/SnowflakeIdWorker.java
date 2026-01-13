@@ -11,19 +11,21 @@ public class SnowflakeIdWorker {
     private final long sequenceBits = 12L;
 
     // 最大值计算
-    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
-    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private final long maxWorkerId = 31L;
+    private final long maxDatacenterId = 31L;
+    private final long sequenceMask = 4095L;
 
     // 位移量
     private final long workerIdShift = sequenceBits;
     private final long datacenterIdShift = sequenceBits + workerIdBits;
-    private final long timestampShift = sequenceBits + workerIdBits + datacenterIdBits;
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
     private long workerId;
     private long datacenterId;
     private long sequence = 0L;
     private long lastTimestamp = -1L;
+
+    private static final long twepoch = 1288834974657L;
 
     public SnowflakeIdWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
@@ -50,10 +52,7 @@ public class SnowflakeIdWorker {
             sequence = 0L;
         }
         lastTimestamp = timestamp;
-        return ((timestamp) << timestampShift)
-                | (datacenterId << datacenterIdShift)
-                | (workerId << workerIdShift)
-                | sequence;
+        return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
     }
 
     private long tilNextMillis(long lastTimestamp) {
@@ -65,6 +64,6 @@ public class SnowflakeIdWorker {
     }
 
     private long timeGen() {
-        return System.currentTimeMillis() - 1420041600000L;
+        return System.currentTimeMillis();
     }
 }
