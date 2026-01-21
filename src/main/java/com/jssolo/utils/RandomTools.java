@@ -9,15 +9,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomTools {
 
     /**
-     * 获取指定长度的随机数
+     * 获取指定长度的随机数(正整数)
      * 第一位数生成范围为1-9，不会出现0开头的数字
      * @author ZYan
      * @param length 指定长度 区间为1-9
      * @return 返回指定长度的随机数
      */
-    public static Integer getNum(Integer length){
+    public static Integer getPositiveInt(Integer length){
         if(length > 9 || length < 1){
-            throw new RuntimeExceptionOnly("<com.jssolo.utils.RandomTools.getNum> length区间为 1到9，但是得到" + length);
+            throw new IllegalArgumentException("length必须为1到9之间的整数，但是得到" + length);
         }
         StringBuffer s = new StringBuffer();
         int randomNumber = ThreadLocalRandom.current().nextInt(1, 10);
@@ -30,6 +30,24 @@ public class RandomTools {
     }
 
     /**
+     * 获取指定长度的随机数
+     * @author ZYan
+     * @param length 指定长度 区间为1-9
+     * @return 返回指定长度的随机数
+     */
+    public static String getNum(Integer length){
+        if(length > 9 || length < 1){
+            throw new IllegalArgumentException("length必须为1到9之间的整数，但是得到" + length);
+        }
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < length; i++){
+            int temp = ThreadLocalRandom.current().nextInt(0, 10);
+            s.append(temp);
+        }
+        return s.toString();
+    }
+
+    /**
      * 获取指定长度的随机小写字符
      * @author ZYan
      * @param length 指定长度 区间为1-99
@@ -37,7 +55,7 @@ public class RandomTools {
      */
     public static String getChara(Integer length){
         if(length > 99 || length < 1){
-            throw new RuntimeExceptionOnly("<com.jssolo.utils.RandomTools.getChara> length区间为 1到99，但是得到" + length);
+            throw new IllegalArgumentException("length必须为1到99之间的整数，但是得到" + length);
         }
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < length; i++){
@@ -55,7 +73,7 @@ public class RandomTools {
      */
     public static String getCharA(Integer length){
         if(length > 99 || length < 1){
-            throw new RuntimeExceptionOnly("<com.jssolo.utils.RandomTools.getCharA> length区间为 1到99，但是得到" + length);
+            throw new IllegalArgumentException("length必须为1到99之间的整数，但是得到" + length);
         }
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < length; i++){
@@ -73,7 +91,7 @@ public class RandomTools {
      */
     public static String getChar(Integer length){
         if(length > 99 || length < 1){
-            throw new RuntimeExceptionOnly("<com.jssolo.utils.RandomTools.getChar> length区间为 1到99，但是得到" + length);
+            throw new IllegalArgumentException("length必须为1到99之间的整数，但是得到" + length);
         }
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < length; i++){
@@ -97,7 +115,7 @@ public class RandomTools {
      */
     public static String getCharNum(Integer length){
         if(length > 99 || length < 1){
-            throw new RuntimeExceptionOnly("<com.jssolo.utils.RandomTools.getCharNum> length区间为 1到99，但是得到" + length);
+            throw new IllegalArgumentException("length必须为1到99之间的整数，但是得到" + length);
         }
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < length; i++){
