@@ -14,5 +14,3 @@ Java工具类
 ## 工具类的方法介绍
 https://www.jssolo.com/java/1363
 
-## 问题反馈
-邮件地址: solo@jssolo.cn
