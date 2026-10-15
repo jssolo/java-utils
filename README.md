@@ -11,6 +11,4 @@ Java工具类
     <version>${java-utils.version}</version>
 </dependency>
 ```
-## 工具类的方法介绍
-https://www.jssolo.com/java/1363
-
+项目暂停
